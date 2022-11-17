@@ -1,45 +1,214 @@
-.Articles {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    list-style: none;
+.ant-pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  padding-bottom: 30px!important;
 }
 
-.ArticlesList ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    list-style: none;
+.ant-pagination li {
+  outline: none;
+  border: none;
+  font-size: 12px;
+  padding: 3.6px 8px;
+  border-radius: 4px;
+  transition: all 0.4s;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.75);
+  background: none;
 }
 
-.ArticlesList li {
-    padding: 10px;
+.ant-pagination li:hover,
+.ant-pagination li:active {
+  font-weight: 500;
+  background: #fff; 
+  border-color: #1890ff;
+}
+
+.articles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  list-style: none;
+}
+
+.ant-list-items ul {
+  list-style-type: none;
+  list-style: none;
+  display: flex;
+}
+
+.articles__list-item {
+padding: 8px 24px!important;
 }
 
 
-.ant-list-items {
-   list-style-type: none;
-   list-style: none;
-   display: flex;
+.article {
+  background: #FFFFFF;
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+  margin: 0px;
+  list-style-type: none;
+  list-style: none;
+  padding: 20px;
+  width: 941px;
+  height: 140px;
+}
+.article header {
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 4px;
+  max-width: 700px;
 }
 
-.ant-list-item {
-    list-style-type: none;
-}
-.ArticlesListItem {
-    background: #FFFFFF;
-border-radius: 5px;
-filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
-margin: 0px;
-list-style-type: none;
-list-style: none;
-padding: 20px;
-width: 941px;
-height: 140px;
-}
 
 .ant-pagination_ul {
-    display: block;
+  display: block;
+}
+
+.tag__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row!important;
+  justify-content: flex-start!important;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 2px 6px 3px!important;;
+  max-width: 25%;
+  max-height: 30px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 4px;
+  max-width: 700px;
+}
+
+.title {
+  color: var(--info-color);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  margin: 0;
+  margin-right: 13px;
+  text-decoration: none;
+  max-height: 140px;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.description {
+  max-width: 700px;
+  color: rgba(0, 0, 0, 0.75);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  margin-top: 4px;
+  max-height: 140px;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.author {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+
+.likes__content {
+  display: flex;
+  align-items: center;
+}
+
+
+.likes__button {
+  background: url('../../assets/images/like.svg') 50% 50% no-repeat;
+  border: none;
+  margin-right: 3px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.likes__count {
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.liked {
+  background: url('../../assets/images/filledLike.svg') 50% 50% no-repeat;
+}
+
+.article__title {
+  color: #1890ff;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  margin: 0;
+  margin-right: 13px;
+  text-decoration: none;
+  max-height: 140px;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 46px;
+  position: relative;
+}
+
+a:hover .user__name {
+  text-decoration: underline;
+}
+
+.user__name {
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.85);
+  margin-right: 58px;
+}
+
+.user__created {
+  font-size: 12px;
+  line-height: 22px;
+  margin-right: 58px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.user__avatar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 46px;
+  height: 46px;
 }

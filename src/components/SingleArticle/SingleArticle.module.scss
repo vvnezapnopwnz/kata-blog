@@ -1,0 +1,195 @@
+.single-article {
+  max-width: 941px;
+  margin: 24px auto;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding: 19px;
+  position: relative;
+}
+
+.single-article__header {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.title {
+  margin: 0;
+  margin-right: 13px;
+  color: #1890ff;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  max-width: 666px;
+}
+
+.author {
+  position: absolute;
+  top: 17px;
+  right: 14px;
+}
+
+.short-text {
+  margin: 0;
+  margin-top: 19px;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.5);
+  max-width: 682px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  word-wrap: break-word;
+}
+
+.markdown {
+  margin: 0;
+  margin-top: 24px;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0px;
+  word-wrap: break-word;
+}
+
+.markdown h1 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0em;
+  margin: 4px 0;
+}
+
+.markdown h2 {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0em;
+  margin: 0;
+}
+
+.markdown p {
+  margin: 0 0 30px;
+}
+
+.markdown ol,
+.markdown ul {
+  margin: 0;
+  padding-left: 25px;
+}
+
+.markdown img {
+  max-width: 100%;
+}
+
+.markdown * {
+  white-space: pre-wrap;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  right: 13px;
+  top: 93px;
+}
+
+.controls .buttons {
+  display: flex;
+  height: 30px;
+}
+
+.controls button {
+  margin-left: 12px;
+}
+
+.delete_error {
+  color: #f5222d;
+  font-size: 14px;
+  padding: 5px 0;
+}
+
+.likes__content {
+  display: flex;
+  align-items: center;
+}
+
+.likes__button {
+  background: url("../../assets/images/like.svg") 50% 50% no-repeat;
+  border: none;
+  margin-right: 3px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.likes__count {
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.liked {
+  background: url("../../assets/images/filledLike.svg") 50% 50% no-repeat;
+}
+
+.tag__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 2px 6px 3px;
+  max-width: 25%;
+  max-height: 30px;
+  overflow: hidden;
+}
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 46px;
+  position: relative;
+}
+
+a:hover .user__name {
+  text-decoration: underline;
+}
+
+.user__name {
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.85);
+  margin-right: 58px;
+}
+
+.user__created {
+  font-size: 12px;
+  line-height: 22px;
+  margin-right: 58px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.user__avatar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 46px;
+  height: 46px;
+}
