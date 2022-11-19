@@ -1,20 +1,20 @@
-import { Pagination, List } from "antd";
-import { BrowserRouter as Router, Link, useRouteMatch } from "react-router-dom";
+import classes from "./ArticlesList.module.scss";
+import { List } from "antd";
 import { format } from "date-fns";
 import React, { useState, useEffect } from "react";
-import classes from "./ArticlesList.module.scss";
-import blogService from "../../services/blogService";
-const ArticlesList = () => {
+import { Link} from "react-router-dom";
+
+const ArticlesList = ({ getArticles }) => {
   // let match = useRouteMatch();
   // console.log(match)
   const [articlesData, setArticlesData] = useState({});
 
   useEffect(() => {
-    blogService.getArticles().then(({ articles, articlesCount }) => {
+    getArticles().then(({ articles, articlesCount }) => {
       console.log(articles);
       setArticlesData({ articles, articlesCount });
     });
-  }, []);
+  }, [getArticles]);
 
   return (
     <div className={classes["articles"]}>
@@ -24,12 +24,9 @@ const ArticlesList = () => {
         size="large"
         pagination={{
           onChange: (page) => {
-            console.log(page);
-            blogService
-              .getArticles(page * 5)
-              .then(({ articles, articlesCount }) => {
-                setArticlesData({ articles, articlesCount });
-              });
+            getArticles(page * 5).then(({ articles, articlesCount }) => {
+              setArticlesData({ articles, articlesCount });
+            });
           },
           pageSize: 5,
           total: articlesData.articlesCount,
@@ -37,7 +34,7 @@ const ArticlesList = () => {
           showTotal: false,
           showQuickJumper: false,
           showLessItems: true,
-          className: classes['ant-pagination']
+          className: classes["ant-pagination"],
         }}
         dataSource={articlesData.articles}
         renderItem={(item, i) => (

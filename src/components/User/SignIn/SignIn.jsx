@@ -1,47 +1,78 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import {
+  useAuthState,
+  useAuthDispatch,
+  doLogin,
+} from "../../../context/authContext";
 import classes from "./SignIn.module.scss";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Link, Redirect } from "react-router-dom";
+
 function SignIn() {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm();
+
+  const { user: loggedUser, status, error } = useAuthState();
+  console.log(loggedUser);
+  const dispatch = useAuthDispatch();
+  if (loggedUser) return <Redirect to="/" />;
+
+  const onSubmit = (userData) => {
+    doLogin(dispatch, userData);
+  };
+
   return (
-    <section>
-      <form>
-        <h2>Sign Up</h2>
-        <div>
-          <label className={classes.label} htmlFor="name">
-            Username
-          </label>
-          <input name="username" placeholder="Username" />
-        </div>
-        <div>
-          <label className={classes.label} htmlFor="email">
+    <section className={classes["sign-in"]}>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className={classes["sign-in__form"]}
+      >
+        <h2 className={classes["form__title"]}>Sign In</h2>
+        <div className={classes["form__item"]}>
+          <label className={classes["label"]} htmlFor="email">
             Email address
           </label>
-          <input name="email" placeholder="Email address" />
+          <input
+            className={classes["input"]}
+            name="email"
+            {...register("email", {
+              required: "email должен быть не пустой",
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message:
+                  "email должен быть корректным почтовым адресом",
+              },
+            })}
+            placeholder="Email address"
+          />
+          {errors.email && <p>{errors.email.message}</p>}
         </div>
-        <div>
-          <label className={classes.label} htmlFor="password">
+        <div className={classes["form__item"]}>
+          <label className={classes["label"]} htmlFor="password">
             Password
           </label>
-          <input name="password" placeholder="Password" type="password" />
-        </div>
-        <div>
-          <label className={classes.label} htmlFor="password">
-            Repeat Password
-          </label>
           <input
-            name="repeat_password"
-            placeholder="Repeat Password"
+            className={classes["input"]}
+            {...register("password", {
+              required: "password должен быть не пустой",
+            })}
+            name="password"
+            placeholder="Password"
             type="password"
           />
+          {errors.password && <p>{errors.password.message}</p>}
         </div>
         <hr />
-
-        <button type="checkbox" name="policy" />
-
-        <button type="submit">Create</button>
+        <button type="submit" onClick={handleSubmit(onSubmit)}>
+          Login
+        </button>
         <p>
-          Already have an account?
-          <Link to="/signin">Sign In.</Link>
+          Don’t have an account?
+          <Link to="/sign-up">Sign Up.</Link>
         </p>
       </form>
     </section>

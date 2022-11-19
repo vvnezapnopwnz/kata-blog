@@ -3,18 +3,18 @@ import { useRouteMatch } from "react-router-dom";
 import { format } from "date-fns";
 import React, { useState, useEffect, useRef } from "react";
 import classes from "./SingleArticle.module.scss";
-import blogService from "../../services/blogService";
-const SingleArticle = () => {
+// import blogService from "../../services/blogService";
+const SingleArticle = ({ getArticle }) => {
   let match = useRouteMatch();
   //   console.log(match)
   let likeButton = useRef();
   const [articleData, setArticleData] = useState({});
 
   useEffect(() => {
-    blogService.getArticle(match.url).then(({ article }) => {
+    getArticle(match.url).then(({ article }) => {
       setArticleData(article);
     });
-  }, [match.url]);
+  },[getArticle, match.url]);
   const favorite = () => {
     likeButton.current.classList.add(classes["liked"]);
   };
@@ -29,8 +29,6 @@ const SingleArticle = () => {
     favorited,
     slug,
   } = articleData;
-  console.log(tagList);
-
   return (
     <div className={classes["single-article"]}>
       <header className={classes["single-article__header"]}>
