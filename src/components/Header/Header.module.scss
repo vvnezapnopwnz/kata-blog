@@ -10,7 +10,7 @@ background-color: #ffffff;
 gap: 20px
 }
 
-.Header__title {
+.Header_Title {
 margin-right: auto;
 font-weight: 400;
 font-size: 18px;
@@ -19,7 +19,7 @@ text-decoration: none;
 color: rgba(0, 0, 0, 0.75);
 }
 
-.signin__button {
+.Signin_Button {
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
@@ -31,11 +31,11 @@ cursor: pointer;
 background: none;
 
 }
-.signup__button {
+.Signup_Button {
 border: none;
 background: none;
 }
-.signup__button a {
+.Signup_Button a {
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
@@ -50,11 +50,11 @@ padding: 10px 18px;
 text-decoration: none;
 }
 
-.create-article__button {
+.Create_Article_Button {
   border: none;
   background: none;
 }
-.create-article__button a {
+.Create_Article_Button a {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -69,7 +69,7 @@ text-decoration: none;
   text-decoration: none;
 }
 
-.logout__button{
+.Logout_Button{
   border: 1px solid rgba(0, 0, 0, 0.75);
   color: rgba(0, 0, 0, 0.75);
   background-color: #ffffff;
@@ -80,7 +80,7 @@ text-decoration: none;
   cursor: pointer;
 }
 
-.user {
+.User {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -89,18 +89,18 @@ text-decoration: none;
   position: relative;
 }
 
-a:hover .user__name {
+a:hover .User_Name {
   text-decoration: none;
 }
 
-.user__name {
+.User_Name {
   font-size: 18px;
   line-height: 28px;
   color: rgba(0, 0, 0, 0.85);
   margin-right: 58px;
 }
 
-.user__avatar {
+.User_Avatar {
   position: absolute;
   right: 0;
   top: 0;

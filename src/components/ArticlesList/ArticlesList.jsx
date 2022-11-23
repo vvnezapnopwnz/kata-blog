@@ -1,32 +1,47 @@
-import classes from "./ArticlesList.module.scss";
-import { List } from "antd";
-import { format } from "date-fns";
-import React, { useState, useEffect } from "react";
-import { Link} from "react-router-dom";
+import { List } from 'antd'
+import { format } from 'date-fns'
+import PropTypes from 'prop-types'
+import React, { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const ArticlesList = ({ getArticles }) => {
-  // let match = useRouteMatch();
-  // console.log(match)
-  const [articlesData, setArticlesData] = useState({});
+import classes from './ArticlesList.module.scss'
 
+const ArticlesList = ({ getArticles, favoriteArticle }) => {
+  const sendToFavorites = (slug, favorited) => {
+    if (favorited) {
+      favoriteArticle(slug, false).then(() => {
+        getArticles().then(({ articles, articlesCount }) => {
+          setArticlesData({ articles, articlesCount })
+        })
+      })
+    } else {
+      favoriteArticle(slug, true).then(() => {
+        getArticles().then(({ articles, articlesCount }) => {
+          setArticlesData({ articles, articlesCount })
+        })
+      })
+    }
+  }
+  const [articlesData, setArticlesData] = useState({})
+  let likeButton = useRef()
   useEffect(() => {
     getArticles().then(({ articles, articlesCount }) => {
-      console.log(articles);
-      setArticlesData({ articles, articlesCount });
-    });
-  }, [getArticles]);
-
+      setArticlesData({ articles, articlesCount })
+    })
+  }, [getArticles])
+  const likeIconClicked = (favorited) =>
+    favorited === true ? [classes.Likes_Button, classes.Liked].join(' ') : classes.Likes_Button
   return (
-    <div className={classes["articles"]}>
+    <div className={classes.Articles}>
       <List
-        className={classes["articles__list"]}
+        className={classes.Articles_List}
         itemLayout="vertical"
         size="large"
         pagination={{
           onChange: (page) => {
             getArticles(page * 5).then(({ articles, articlesCount }) => {
-              setArticlesData({ articles, articlesCount });
-            });
+              setArticlesData({ articles, articlesCount })
+            })
           },
           pageSize: 5,
           total: articlesData.articlesCount,
@@ -34,54 +49,45 @@ const ArticlesList = ({ getArticles }) => {
           showTotal: false,
           showQuickJumper: false,
           showLessItems: true,
-          className: classes["ant-pagination"],
+          className: classes['ant-pagination'],
         }}
         dataSource={articlesData.articles}
-        renderItem={(item, i) => (
-          <List.Item key={item.i} className={classes["articles__list-item"]}>
+        renderItem={(item, index) => (
+          <List.Item key={index} className={classes.Articles_List_Item}>
             <List.Item.Meta />
-            <div className={classes["article"]}>
+            <div className={classes.Article}>
               <header>
-                <Link
-                  className={classes["article__title"]}
-                  to={`articles/${item.slug}`}
-                >
+                <Link className={classes.Article_Title} to={`articles/${item.slug}`}>
                   {item.title}
                 </Link>
-                <div className={classes["likes__content"]}>
+                <div className={classes.Likes_Content}>
                   <button
-                    ref={item.likeButton}
-                    className={classes["likes__button"]}
-                    // onClick={() => favorite()}
+                    ref={likeButton}
+                    className={likeIconClicked(item.favorited)}
+                    onClick={() => sendToFavorites(item.slug, item.favorited)}
                   ></button>
-                  <span className={classes["likes__count"]}>
-                    {item.favoritesCount}
-                  </span>
+                  <span className={classes.Likes_Count}>{item.favoritesCount}</span>
                 </div>
               </header>
-              <ul className={classes["tag__list"]}>
+              <ul className={classes.Tag_List}>
                 {item.tagList &&
                   item.tagList.map((tag, index) => (
-                    <li key={index} className={classes["tag"]}>
+                    <li key={index} className={classes.Tag}>
                       {tag}
                     </li>
                   ))}
               </ul>
-              <div className={classes["description"]}>{item.description}</div>
+              <div className={classes.Description}>{item.description}</div>
               <div>
-                <div className={classes["author"]}>
+                <div className={classes.Author}>
                   {item.author && (
-                    <div className={classes.user}>
-                      <div className={classes["user__name"]}>
-                        {item.author.username}
-                      </div>
+                    <div className={classes.User}>
+                      <div className={classes.User_Name}>{item.author.username}</div>
                       {item.createdAt && (
-                        <div className={classes["user__created"]}>
-                          {format(new Date(item.createdAt), "PPP")}
-                        </div>
+                        <div className={classes.User_Created}>{format(new Date(item.createdAt), 'PPP')}</div>
                       )}
                       <img
-                        className={classes["user__avatar"]}
+                        className={classes.User_Avatar}
                         src={item.author.image}
                         alt={`${item.author.username}`}
                       />
@@ -94,7 +100,17 @@ const ArticlesList = ({ getArticles }) => {
         )}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ArticlesList;
+ArticlesList.defaultProps = {
+  getArticles: () => {},
+  favoriteArticle: () => {},
+}
+
+ArticlesList.propTypes = {
+  getArticles: PropTypes.func.isRequired,
+  favoriteArticle: PropTypes.func.isRequired,
+}
+
+export default ArticlesList

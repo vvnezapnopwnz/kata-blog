@@ -1,9 +1,9 @@
-.Sign_in {
+.Create_article {
   display: flex;
   justify-content: center;
 }
 
-.Sign_in_Form {
+.Create_article_Form {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
   padding: 48px 32px;
   margin: 62px auto;
   gap: 12px;
-  width: 384px;
+  width: 938px;
   left: 523px;
   top: 139px;
   background: #ffffff;
@@ -57,12 +57,62 @@
   padding: 8px;
 }
 
-.Submit {
-  background: #1890ff;
+.Input_Text {
+  border: 1px solid #d9d9d9;
   border-radius: 4px;
+  background: #ffffff;
+  box-sizing: border-box;
+  padding: 8px;
+  height: 170px;
+  text-align: top;
+}
+
+.Delete_Button {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #f5222d;
+  border-radius: 5px;
+  border: 1px solid #f5222d;
+  background-color: #ffffff;
+  outline: none;
+  padding: 5px 18px;
+  text-decoration: none;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.Add_Button {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #1890ff;
+  border-radius: 5px;
+  border: 1px solid #1890ff;
+  background-color: #ffffff;
+  outline: none;
+  padding: 5px 18px;
+  text-decoration: none;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.Tags__List {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Submit {
   width: 319px;
   height: 40px;
+  cursor: pointer;
+  background: #1890ff;
+  border-radius: 4px;
   border: none;
   color: #ffffff;
-  cursor: pointer;
 }

@@ -1,0 +1,43 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true 
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:import/errors", "plugin:import/warnings"
+        
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "import"
+    ],
+    "rules": {
+        "import/order": [
+            2,
+            {
+              "groups": ["builtin", "internal", "external", "parent", "sibling", "index"]
+            }
+        ],
+        "no-case-declarations": "off"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+        "import/resolver": {
+          "node": {
+            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+        }
+      }
+}

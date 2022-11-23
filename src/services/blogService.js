@@ -1,51 +1,68 @@
 class blogService {
   constructor() {
-    this.apiBase = "https://blog.kata.academy/api";
+    this.apiBase = 'https://blog.kata.academy/api'
   }
 
   getResources = async (resource, options = null) => {
-    // console.log(`${this.apiBase}/${resource}`)
-    const res = await fetch(`${this.apiBase}/${resource}`, options);
-    return await res.json();
-  };
+    const res = await fetch(`${this.apiBase}/${resource}`, options)
+    return await res.json()
+  }
 
   getArticles = async (offset = 0) => {
-    const res = this.getResources(`articles?limit=5&offset=${offset}`);
-    // const result = await articles.json();
-    return res;
-  };
+    if (localStorage.getItem('token')) {
+      const res = this.getResources(`articles?limit=5&offset=${offset}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      return res
+    }
+    const res = this.getResources(`articles?limit=5&offset=${offset}`)
+    return res
+  }
 
   getArticle = async (slug) => {
-    const res = this.getResources(`${slug}`);
-    // const result = await articles.json();
-    // console.log(res)
-    return res;
-  };
+    if (localStorage.getItem('token')) {
+      const res = this.getResources(`${slug}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      return res
+    }
+
+    const res = this.getResources(`${slug}`)
+    return res
+  }
 
   loginUser = async ({ email, password }) => {
-    const res = this.getResources("users/login", {
+    const res = this.getResources('users/login', {
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         user: {
           email: email,
           password: password,
         },
       }),
-    });
-    return res;
-  };
+    })
+    return res
+  }
 
   registerUser = async ({ email, password, username }) => {
-    const res = this.getResources("users", {
+    const res = this.getResources('users', {
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         user: {
           email: email,
@@ -53,19 +70,18 @@ class blogService {
           username: username,
         },
       }),
-    });
-    return res;
-  };
+    })
+    return res
+  }
 
   updateUser = async ({ email, password, username, image, token }) => {
-    // console.log("updateUser", token);
-    const res = this.getResources("user", {
+    const res = this.getResources('user', {
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({
         user: {
           email: email,
@@ -75,17 +91,112 @@ class blogService {
           token: token,
         },
       }),
-    });
-    return res;
-  };
+    })
+    return res
+  }
 
   getUser = async ({ token }) => {
-    // console.log(token);
-    const res = this.getResources("user", {
+    const res = this.getResources('user', {
       headers: { Authorization: `Bearer ${token}` },
-    });
-    return res;
-  };
+    })
+    return res
+  }
+
+  createArticle = async ({ title, description, body, tags }) => {
+    await this.getResources('articles', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        article: {
+          title: title,
+          description: description,
+          body: body,
+          tagList: tags,
+        },
+      }),
+    })
+      .then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error('Bad response from server')
+        }
+        return response
+      })
+      .catch((error) => {
+        return error
+      })
+  }
+
+  editArticle = async ({ title, description, body, tags }, slug) => {
+    await this.getResources(`articles/${slug}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'PUT',
+      body: JSON.stringify({
+        article: {
+          title: title,
+          description: description,
+          body: body,
+          tagList: tags,
+        },
+      }),
+    })
+      .then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error('Bad response from server')
+        }
+        return response
+      })
+      .catch((error) => {
+        return error
+      })
+  }
+
+  deleteArticle = async (slug) => {
+    await this.getResources(`articles/${slug}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error('Bad response from server')
+        }
+        return response
+      })
+      .catch((error) => {
+        return error
+      })
+  }
+
+  favoriteArticle = async (slug, liked) => {
+    return await this.getResources(`articles/${slug}/favorite`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: `${liked ? 'POST' : 'DELETE'}`,
+    })
+      .then((response) => {
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error('Bad response from server')
+        }
+        return response.article
+      })
+      .catch((error) => {
+        return error
+      })
+  }
 }
 
-export default blogService;
+export default blogService
